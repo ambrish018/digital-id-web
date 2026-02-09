@@ -1,13 +1,16 @@
-
 'use client';
+
 export const dynamic = 'force-dynamic';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
 
-export default function VerifyPage() {
+/* ---------------- INNER COMPONENT ---------------- */
+
+function VerifyContent() {
   const searchParams = useSearchParams();
   const pinFromUrl = searchParams.get('pin');
 
@@ -43,8 +46,7 @@ export default function VerifyPage() {
       setUser(data);
     } catch (err) {
       setError(err.message || 'Verification failed');
-    }
-     finally {
+    } finally {
       setLoading(false);
     }
   }
@@ -84,5 +86,15 @@ export default function VerifyPage() {
         </div>
       )}
     </div>
+  );
+}
+
+/* ---------------- PAGE EXPORT ---------------- */
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyContent />
+    </Suspense>
   );
 }

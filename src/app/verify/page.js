@@ -89,18 +89,42 @@ function VerifyContent() {
       {error && <p style={{ color: 'red', marginTop: 12 }}>{error}</p>}
 
       {user && (
-  <div style={{ marginTop: 20, textAlign: 'center' }}>
-    <p><b>Name:</b> {user.name}</p>
-    <p><b>Email:</b> {user.email}</p>
-    <p><b>Phone:</b> {user.phone}</p>
-    <p><b>Global ID:</b> {user.global_id}</p>
+  <div
+    style={{
+      marginTop: 24,
+      padding: 24,
+      width: '100%',
+      maxWidth: 360,
+      borderRadius: 8,
+      backgroundColor: '#f0fdf4',
+      border: '1px solid #86efac',
+      textAlign: 'center',
+    }}
+  >
+    <div style={{ fontSize: 32, marginBottom: 8 }}>✅</div>
+
+    <h2 style={{ marginBottom: 16, color: '#166534' }}>
+      Verification Successful
+    </h2>
+
+    <div style={{ textAlign: 'left', marginBottom: 20 }}>
+      <p><b>Name:</b> {user.name}</p>
+      <p><b>Email:</b> {user.email}</p>
+      <p><b>Phone:</b> {user.phone}</p>
+      <p><b>Global ID:</b> {user.global_id}</p>
+    </div>
 
     <button
       onClick={resetVerification}
       style={{
-        marginTop: 20,
-        padding: '8px 16px',
+        width: '100%',
+        padding: '10px 0',
         fontSize: 16,
+        fontWeight: 500,
+        borderRadius: 6,
+        border: 'none',
+        backgroundColor: '#16a34a',
+        color: '#fff',
         cursor: 'pointer',
       }}
     >
@@ -108,6 +132,7 @@ function VerifyContent() {
     </button>
   </div>
 )}
+
 
     </div>
   );

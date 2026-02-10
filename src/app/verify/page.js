@@ -4,9 +4,11 @@ export const dynamic = 'force-dynamic';
 
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+  const router = useRouter();
 
 /* ---------------- INNER COMPONENT ---------------- */
 
@@ -51,6 +53,15 @@ function VerifyContent() {
     }
   }
 
+  function resetVerification() {
+    setUser(null);
+    setPin('');
+    setError('');
+    router.replace('/verify'); // removes ?pin=
+  }
+  
+
+  
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <h1>Verify Digital ID</h1>
@@ -78,13 +89,26 @@ function VerifyContent() {
       {error && <p style={{ color: 'red', marginTop: 12 }}>{error}</p>}
 
       {user && (
-        <div style={{ marginTop: 20 }}>
-          <p><b>Name:</b> {user.name}</p>
-          <p><b>Email:</b> {user.email}</p>
-          <p><b>Phone:</b> {user.phone}</p>
-          <p><b>Global ID:</b> {user.global_id}</p>
-        </div>
-      )}
+  <div style={{ marginTop: 20, textAlign: 'center' }}>
+    <p><b>Name:</b> {user.name}</p>
+    <p><b>Email:</b> {user.email}</p>
+    <p><b>Phone:</b> {user.phone}</p>
+    <p><b>Global ID:</b> {user.global_id}</p>
+
+    <button
+      onClick={resetVerification}
+      style={{
+        marginTop: 20,
+        padding: '8px 16px',
+        fontSize: 16,
+        cursor: 'pointer',
+      }}
+    >
+      Verify another PIN
+    </button>
+  </div>
+)}
+
     </div>
   );
 }
